@@ -2,6 +2,10 @@
 Simple To-do-list application
 
 ## Setup App
+Must be install on machine
+sqlite3
+python
+
 Create venv 
 
 python -m venv venv
