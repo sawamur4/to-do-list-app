@@ -73,7 +73,8 @@ async def get_checklist_item(checklist_id: int, item_id: int, db: db_dependency,
 
 @router.put("/{checklist_id}/item/{item_id}", status_code=status.HTTP_200_OK)
 async def update_status_checklist_item(checklist_id: int, item_id: int, db: db_dependency, user: user_dependency):
-    db.query(CheklistItems).filter(CheklistItems.id == item_id, CheklistItems.checklist_id == checklist_id).update({"status": True})
+    current_status = db.query(CheklistItems).filter(CheklistItems.id == item_id, CheklistItems.checklist_id == checklist_id).first().status
+    db.query(CheklistItems).filter(CheklistItems.id == item_id, CheklistItems.checklist_id == checklist_id).update({"status": not current_status})
     db.commit()
 
 @router.put("/{checklist_id}/item/{item_id}/rename", status_code=status.HTTP_200_OK)
